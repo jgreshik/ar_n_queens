@@ -456,7 +456,7 @@ def draw_board(image,intersections,just_boundary=True,board_color=(0,255,0)):
     if not just_boundary:
         draw_intersections(image,intersections,just_corners=False,all_color=board_color)
     # drawing boundary clockwise starting from upper left
-    line_thickness=5
+    line_thickness=3
     cv2.line(img=image, 
              pt1=(int(intersections[0][0]),int(intersections[0][1])), 
              pt2=(int(intersections[-9][0]),int(intersections[-9][1])), 
@@ -501,8 +501,8 @@ def check_board(intersections,h_image_ortho):
 
 
 def draw_intersections(image,intersections,just_corners=True,all_color=(0,255,0)):
-    radius=10
-    thickness=4
+    radius=5
+    thickness=3
     colors=[(255,255,255),(255,0,255),(0,255,255),(160,160,160),all_color]
     if not just_corners:
         for b in intersections:
@@ -569,7 +569,7 @@ def detect_board(bgr_image, do_draw_board=False):
     if not check_board(intersections,h_image_ortho): return None, None
 
     if do_draw_board:
-        board_color=(0,255,0)
+        board_color=(140,140,140)
         draw_board(bgr_image,intersections,just_boundary=False,board_color=board_color)
         draw_intersections(bgr_image,intersections,just_corners=False,all_color=board_color)
 

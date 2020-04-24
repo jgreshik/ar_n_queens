@@ -2,6 +2,7 @@ from keras.models import Sequential
 from keras.layers import Conv2D, MaxPooling2D
 from keras.layers import Activation, Dropout, Flatten, Dense
 from keras import backend as K
+import numpy as np
  
 def rgb_to_gray(image_array,bgr=False):
     if bgr: return np.array([[0.21*image_array[i][j][2] + 0.72*image_array[i][j][1] 
@@ -11,16 +12,15 @@ def rgb_to_gray(image_array,bgr=False):
 
 class custom_model():
 
-    save_path="../data/models/"
-    model_name="binary_class_chess_square.h5"
-
-    # dimensions of our images.
-    img_width, img_height = 32, 32
 
     def __init__(self):
         self.model=Sequential()
         
     def compile(self):
+
+        # dimensions of our images.
+        img_width, img_height = 32, 32
+
         if K.image_data_format() == 'channels_first':
             input_shape = (1, img_width, img_height)
         else:
@@ -49,7 +49,7 @@ class custom_model():
                       optimizer='rmsprop',
                       metrics=['accuracy'])
 
-    def load_model(self,model_location=save_path+model_name):
+    def load_model(self,model_location="../data/models/binary_class_chess_square.h5"):
         self.compile()
         self.model.load_weights(model_location)
 

@@ -8,9 +8,9 @@ class Square():
         self.popu=popu_
 
 class Queen():
-    def __init__(self, loc_, safe_=True):
+    def __init__(self, loc_):
         self.loc=int(loc_)
-        self.safe=safe_
+        self.safe=True
     def set_loc(self,loc_):
         self.loc=loc_
     def set_safe(self,safe_):
@@ -20,7 +20,7 @@ class Board ():
     def __init__(self):
         self.width=8
         self.height=8
-        self.squares=[Square(id_=i) for i in range(self.width*self.height)]
+        self.squares=[Square(id_=i) for i in range(64)]
         self.queens=[]
     def update_safe(self):
         for q in range(len(self.queens)):
@@ -47,3 +47,8 @@ class Board ():
                 danger+=self.squares[self.queens[q].loc-self.width*i-i].popu*1
             danger-=2
             if danger>0: self.queens[q].safe=False
+            else: self.queens[q].safe=True
+        for queen in self.queens:
+            if queen.safe == False: return False
+        if len(self.queens)==8: return True
+        return False
